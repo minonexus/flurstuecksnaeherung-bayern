@@ -25,6 +25,7 @@ import zipfile
 from pathlib import Path
 
 DATEN = "https://data.minonexus.com/flurstuecksnaeherung-bayern"
+KENNUNG = "flurstuecksnaeherung-bayern-werkzeug/1 (+https://github.com/minonexus/flurstuecksnaeherung-bayern)"
 LAYER = "flurstuecksnaeherung"
 SCHEMA = Path(__file__).resolve().parent.parent / "schema" / "naeherung_korrektur.schema.json"
 QUELLEN = ("ortskenntnis", "parzellarkarte", "luftbild_frei", "andere_freie_quelle")
@@ -160,7 +161,9 @@ def _kreis_laden(daten: str, kreis: str, cache: dict) -> tuple[dict, dict]:
 
     def holen(name):
         if daten.startswith(("http://", "https://")):
-            with urllib.request.urlopen(f"{daten.rstrip('/')}/{name}", timeout=120) as r:
+            # Eigener Kennzeichner: Cloudflare sperrt den von urllib (Fehler 1010)
+            anfrage = urllib.request.Request(f"{daten.rstrip('/')}/{name}", headers={"User-Agent": KENNUNG})
+            with urllib.request.urlopen(anfrage, timeout=120) as r:
                 return r.read()
         return (Path(daten) / name).read_bytes()
 
