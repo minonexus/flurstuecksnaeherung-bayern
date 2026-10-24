@@ -1,0 +1,90 @@
+# Prüft die Korrekturdateien eines Pull Requests gegen den veröffentlichten Stand.
+#
+# pull_request_target, damit der Kommentar auch bei Pull Requests aus Forks geschrieben werden
+# kann. Deshalb läuft hier NUR Code aus dem Basis-Branch: Die Dateien des Pull Requests werden als
+# Daten gelesen (git show), nie ausgecheckt oder ausgeführt.
+name: Korrekturen prüfen
+
+on:
+  pull_request_target:
+    paths: ["korrekturen/**"]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Dateien des Pull Requests holen
+        id: dateien
+        env:
+          PR: ${{ github.event.pull_request.number }}
+          BASIS: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git fetch -q origin "pull/$PR/head:pr"
+          git diff --name-status --no-renames -z "$BASIS"...pr -- korrekturen/ | tr '\0' '\n' | paste - - > aenderungen.tsv
+          : > verboten.txt
+          : > liste.txt
+          muster='^korrekturen/09[0-9]{3}/[0-9]{4}-[0-9]{2}-[0-9]{2}_[a-z0-9_-]{3,60}\.geojson$'
+          while IFS=$'\t' read -r art pfad; do
+            # Angenommene Korrekturen ändert kein Pull Request — eine neue Korrektur ist eine neue Datei.
+            # Nur Namen nach dem Muster gehen weiter: Sie landen in einer Befehlszeile
+            if [ "$art" != "A" ]; then
+              echo "geändert/gelöscht: $pfad" >> verboten.txt
+            elif ! printf '%s' "$pfad" | grep -qE "$muster"; then
+              echo "Name nicht nach korrekturen/<kreis>/<JJJJ-MM-TT>_<kurzname>.geojson: $pfad" >> verboten.txt
+            else
+              mkdir -p "pr_dateien/$(dirname "$pfad")"
+              git show "pr:$pfad" > "pr_dateien/$pfad"
+              echo "pr_dateien/$pfad" >> liste.txt
+            fi
+          done < aenderungen.tsv
+          [ -s verboten.txt ] && echo "verboten=1" >> "$GITHUB_OUTPUT"
+          [ -s liste.txt ] && echo "pruefen=1" >> "$GITHUB_OUTPUT"
+          cat aenderungen.tsv
+
+      - name: Prüfen
+        id: pruefen
+        if: steps.dateien.outputs.pruefen == '1'
+        run: |
+          set +e
+          # Namen aus liste.txt sind gegen das Muster geprüft: keine Leerzeichen, keine Shell-Zeichen
+          python werkzeug/korrektur.py pruefen $(cat liste.txt) --repo pr_dateien --bericht bericht.md
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Bericht in den Pull Request
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          {
+            echo "## Prüfung der Korrekturen"
+            if [ -s verboten.txt ]; then
+              echo "❌ **Nicht zulässig** — bestehende Korrekturdateien werden nicht geändert, umbenannt oder gelöscht (eine neue Korrektur ist eine neue Datei), und Namen folgen dem Muster:"
+              echo '```'
+              cat verboten.txt
+              echo '```'
+            fi
+            [ -f bericht.md ] && cat bericht.md
+          } > kommentar.md
+          cat kommentar.md >> "$GITHUB_STEP_SUMMARY"
+          gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body-file kommentar.md --edit-last || \
+            gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body-file kommentar.md
+
+      - name: Ergebnis
+        if: steps.dateien.outputs.verboten == '1' || steps.pruefen.outputs.status == '1'
+        run: exit 1

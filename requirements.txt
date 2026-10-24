@@ -1,0 +1,5 @@
+shapely>=2.0
+pyproj>=3.6
+fiona>=1.10
+jsonschema>=4.20
+numpy>=1.26

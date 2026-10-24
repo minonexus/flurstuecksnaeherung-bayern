@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.minonexus.com/schema/naeherung_korrektur/1.json",
+  "title": "Korrektur der Flurstücksnäherung Bayern",
+  "description": "Eine Datei je Pull Request unter korrekturen/<ags_kreis>/<JJJJ-MM-TT>_<kurzname>.geojson. GeoJSON nach RFC 7946 (WGS84), damit GitHub sie als Karte zeigt. Was das Schema nicht prüfen kann (Prüfsummen, Überlappungen, Nachkommastellen, Größe), prüft die CI; siehe docs/naeherung_open_data.md § 5.",
+  "type": "object",
+  "required": ["type", "korrektur", "features"],
+  "additionalProperties": false,
+  "properties": {
+    "type": { "const": "FeatureCollection" },
+    "korrektur": {
+      "description": "Angaben zur ganzen Datei (Fremdmitglied nach RFC 7946 § 6.1).",
+      "type": "object",
+      "required": ["schema", "basis", "grund", "quelle"],
+      "additionalProperties": false,
+      "properties": {
+        "schema": { "const": 1 },
+        "basis": {
+          "description": "Veröffentlichte Stände, gegen die korrigiert wurde — je berührten Landkreis einer (manifest.json).",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": ["kreis", "stand"],
+            "additionalProperties": false,
+            "properties": {
+              "kreis": { "type": "string", "pattern": "^09[0-9]{3}$" },
+              "stand": { "type": "integer", "minimum": 1 }
+            }
+          }
+        },
+        "grund": {
+          "description": "Was falsch war und woher man es weiß; wird im Datensatz als Begründung geführt.",
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 2000
+        },
+        "quelle": {
+          "description": "Woraus die neue Grenze stammt. Nur eigene Ortskenntnis und frei lizenzierte Daten — keine amtlichen ALKIS-Auszüge, Kaufverträge oder Lagepläne mit Flurstücksangaben.",
+          "type": "string",
+          "enum": ["ortskenntnis", "parzellarkarte", "luftbild_frei", "andere_freie_quelle"]
+        },
+        "quelle_text": {
+          "description": "Pflicht bei luftbild_frei und andere_freie_quelle: welche Quelle, unter welcher Lizenz.",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 500
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "quelle": { "enum": ["luftbild_frei", "andere_freie_quelle"] } } },
+          "then": { "required": ["quelle_text"] }
+        }
+      ]
+    },
+    "features": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 500,
+      "items": { "$ref": "#/$defs/flaeche" }
+    }
+  },
+  "$defs": {
+    "flaeche": {
+      "type": "object",
+      "required": ["type", "properties", "geometry"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "Feature" },
+        "id": {
+          "description": "id der Fläche im veröffentlichten Stand (= flurstueck.id). Fehlt bei aenderung = neu.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "properties": {
+          "type": "object",
+          "required": ["aenderung"],
+          "additionalProperties": false,
+          "properties": {
+            "aenderung": { "enum": ["neu", "geaendert", "entfallen"] },
+            "basis_hash": {
+              "description": "geom_hash der Fläche im Stand aus korrektur.basis — so, wie sie beim Bearbeiten vorlag.",
+              "type": "string",
+              "pattern": "^[0-9a-f]{16}$"
+            },
+            "grund": {
+              "description": "Begründung nur für diese Fläche, wenn sie von korrektur.grund abweicht.",
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 500
+            }
+          }
+        },
+        "geometry": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/polygon" },
+            { "$ref": "#/$defs/multipolygon" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "properties": { "properties": { "aenderung": { "const": "neu" } } } } },
+          "then": {
+            "not": { "required": ["id"] },
+            "properties": {
+              "properties": { "not": { "required": ["basis_hash"] } },
+              "geometry": { "not": { "type": "null" } }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "properties": { "properties": { "aenderung": { "const": "geaendert" } } } } },
+          "then": {
+            "required": ["id"],
+            "properties": {
+              "properties": { "required": ["basis_hash"] },
+              "geometry": { "not": { "type": "null" } }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "properties": { "properties": { "aenderung": { "const": "entfallen" } } } } },
+          "then": {
+            "required": ["id"],
+            "properties": {
+              "properties": { "required": ["basis_hash"] },
+              "geometry": { "type": "null" }
+            }
+          }
+        }
+      ]
+    },
+    "position": {
+      "description": "[Länge, Breite] in WGS84, grob Bayern; die genaue Landesgrenze prüft die CI.",
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        { "type": "number", "minimum": 8.9, "maximum": 13.9 },
+        { "type": "number", "minimum": 47.2, "maximum": 50.6 }
+      ]
+    },
+    "ring": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "$ref": "#/$defs/position" }
+    },
+    "polygon": {
+      "type": "object",
+      "required": ["type", "coordinates"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "Polygon" },
+        "coordinates": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/ring" } }
+      }
+    },
+    "multipolygon": {
+      "type": "object",
+      "required": ["type", "coordinates"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "MultiPolygon" },
+        "coordinates": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/ring" } }
+        }
+      }
+    }
+  }
+}

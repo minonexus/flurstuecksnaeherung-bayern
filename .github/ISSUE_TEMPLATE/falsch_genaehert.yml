@@ -1,0 +1,39 @@
+name: Falsch genähert
+description: Eine Fläche liegt falsch — ohne GIS melden, wir erstellen die Korrektur
+title: "Falsch genähert: "
+labels: ["falsch genähert"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke! Bitte keine Namen, Eigentümer oder Auszüge aus dem amtlichen Kataster — nur, was falsch aussieht und woher du es weißt.
+  - type: input
+    id: ort
+    attributes:
+      label: Wo?
+      description: Koordinate (z. B. aus einer Karte, „48.2256, 11.7635") oder Gemeinde und Straße
+    validations:
+      required: true
+  - type: input
+    id: id
+    attributes:
+      label: id der Fläche (falls bekannt)
+      description: Attribut `id` im GeoPackage
+  - type: textarea
+    id: beschreibung
+    attributes:
+      label: Was ist falsch?
+      description: z. B. „Doppelhaus als ein Grundstück", „Garagenhof gehört zum Wohnhaus", „Grenze 5 m zu weit im Garten"
+    validations:
+      required: true
+  - type: dropdown
+    id: quelle
+    attributes:
+      label: Woher weißt du es?
+      options:
+        - Ortskenntnis (Zaun, Hecke, Grenzstein)
+        - in der Parzellarkarte zu sehen
+        - frei lizenziertes Luftbild
+        - andere freie Quelle (bitte in der Beschreibung nennen)
+    validations:
+      required: true
