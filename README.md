@@ -1,5 +1,7 @@
 # Flurstücksnäherung Bayern — nicht amtlich
 
+[![Lizenz: CC BY 4.0](https://img.shields.io/badge/Lizenz-CC%20BY%204.0-lightgrey)](LICENSE) [![Downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fdata.minonexus.com%2Fflurstuecksnaeherung-bayern%2Fstatistik.json&query=%24.downloads&label=Downloads&color=blue)](https://data.minonexus.com/flurstuecksnaeherung-bayern/statistik.json)
+
 Rund 10,8 Millionen **genäherte** Flurstücksgrenzen für ganz Bayern, als offene Daten unter
 [CC BY 4.0](LICENSE). Bayern veröffentlicht Flurstücke frei nur als Kartenbild, die
 [Parzellarkarte](https://geodaten.bayern.de). Daraus hat die Minonexus GmbH die Grenzen
@@ -11,11 +13,169 @@ automatisch vektorisiert und mit einem gelernten Modell genähert.
 
 ## Download
 
-- [`manifest.json`](https://data.minonexus.com/flurstuecksnaeherung-bayern/manifest.json): je Landkreis der aktuelle **Stand**, das Datum, die Datei und ihre SHA-256-Prüfsumme
-- `<kreis>.gpkg.zip`: je Landkreis und kreisfreier Stadt ein GeoPackage, z. B. `09177.gpkg.zip` für Erding (59 MB). Layer `flurstuecksnaeherung`, EPSG:25832. Alle 96 zusammen: 4,6 GB.
+Die Daten liegen unter `https://data.minonexus.com/flurstuecksnaeherung-bayern/`, je Landkreis
+und kreisfreier Stadt ein GeoPackage (`<kreis>.gpkg.zip`, Layer `flurstuecksnaeherung`,
+EPSG:25832). Alle 96 zusammen sind 4,6 GB. Eine Anmeldung braucht es nicht.
 
-Der Stand eines Kreises steigt nur, wenn sich dort etwas geändert hat. Wer den Bestand bei
-sich führt, vergleicht das Manifest und lädt nur die geänderten Kreise neu.
+### Einen Kreis laden
+
+1. Den Kreis in der Liste unten suchen und die Datei anklicken, z. B. `09177.gpkg.zip` für den Landkreis Erding.
+2. Die ZIP-Datei entpacken.
+3. Das GeoPackage in QGIS ziehen oder über *Layer → Layer hinzufügen → Vektorlayer* öffnen.
+
+<details>
+<summary><b>Alle 96 Kreise</b> (nach Name; Größe zum ersten Stand)</summary>
+
+| Kreis | | Datei | Größe |
+|---|---|---|---:|
+| Aichach-Friedberg | Landkreis | [`09771.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09771.gpkg.zip) | 49 MB |
+| Altötting | Landkreis | [`09171.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09171.gpkg.zip) | 35 MB |
+| Amberg | Stadt | [`09361.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09361.gpkg.zip) | 6 MB |
+| Amberg-Sulzbach | Landkreis | [`09371.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09371.gpkg.zip) | 80 MB |
+| Ansbach | Landkreis | [`09571.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09571.gpkg.zip) | 121 MB |
+| Ansbach | Stadt | [`09561.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09561.gpkg.zip) | 8 MB |
+| Aschaffenburg | Landkreis | [`09671.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09671.gpkg.zip) | 67 MB |
+| Aschaffenburg | Stadt | [`09661.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09661.gpkg.zip) | 11 MB |
+| Augsburg | Landkreis | [`09772.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09772.gpkg.zip) | 72 MB |
+| Augsburg | Stadt | [`09761.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09761.gpkg.zip) | 16 MB |
+| Bad Kissingen | Landkreis | [`09672.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09672.gpkg.zip) | 67 MB |
+| Bad Tölz-Wolfratshausen | Landkreis | [`09173.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09173.gpkg.zip) | 54 MB |
+| Bamberg | Landkreis | [`09471.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09471.gpkg.zip) | 80 MB |
+| Bamberg | Stadt | [`09461.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09461.gpkg.zip) | 6 MB |
+| Bayreuth | Landkreis | [`09472.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09472.gpkg.zip) | 83 MB |
+| Bayreuth | Stadt | [`09462.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09462.gpkg.zip) | 7 MB |
+| Berchtesgadener Land | Landkreis | [`09172.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09172.gpkg.zip) | 36 MB |
+| Cham | Landkreis | [`09372.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09372.gpkg.zip) | 93 MB |
+| Coburg | Landkreis | [`09473.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09473.gpkg.zip) | 41 MB |
+| Coburg | Stadt | [`09463.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09463.gpkg.zip) | 6 MB |
+| Dachau | Landkreis | [`09174.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09174.gpkg.zip) | 37 MB |
+| Deggendorf | Landkreis | [`09271.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09271.gpkg.zip) | 66 MB |
+| Dillingen an der Donau | Landkreis | [`09773.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09773.gpkg.zip) | 51 MB |
+| Dingolfing-Landau | Landkreis | [`09279.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09279.gpkg.zip) | 55 MB |
+| Donau-Ries | Landkreis | [`09779.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09779.gpkg.zip) | 70 MB |
+| Ebersberg | Landkreis | [`09175.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09175.gpkg.zip) | 34 MB |
+| Eichstätt | Landkreis | [`09176.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09176.gpkg.zip) | 62 MB |
+| Erding | Landkreis | [`09177.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09177.gpkg.zip) | 59 MB |
+| Erlangen | Stadt | [`09562.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09562.gpkg.zip) | 10 MB |
+| Erlangen-Höchstadt | Landkreis | [`09572.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09572.gpkg.zip) | 41 MB |
+| Forchheim | Landkreis | [`09474.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09474.gpkg.zip) | 59 MB |
+| Freising | Landkreis | [`09178.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09178.gpkg.zip) | 56 MB |
+| Freyung-Grafenau | Landkreis | [`09272.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09272.gpkg.zip) | 62 MB |
+| Fürstenfeldbruck | Landkreis | [`09179.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09179.gpkg.zip) | 33 MB |
+| Fürth | Landkreis | [`09573.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09573.gpkg.zip) | 27 MB |
+| Fürth | Stadt | [`09563.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09563.gpkg.zip) | 9 MB |
+| Garmisch-Partenkirchen | Landkreis | [`09180.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09180.gpkg.zip) | 39 MB |
+| Günzburg | Landkreis | [`09774.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09774.gpkg.zip) | 56 MB |
+| Haßberge | Landkreis | [`09674.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09674.gpkg.zip) | 55 MB |
+| Hof | Landkreis | [`09475.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09475.gpkg.zip) | 57 MB |
+| Hof | Stadt | [`09464.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09464.gpkg.zip) | 6 MB |
+| Ingolstadt | Stadt | [`09161.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09161.gpkg.zip) | 15 MB |
+| Kaufbeuren | Stadt | [`09762.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09762.gpkg.zip) | 4 MB |
+| Kelheim | Landkreis | [`09273.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09273.gpkg.zip) | 58 MB |
+| Kempten | Stadt | [`09763.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09763.gpkg.zip) | 6 MB |
+| Kitzingen | Landkreis | [`09675.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09675.gpkg.zip) | 47 MB |
+| Kronach | Landkreis | [`09476.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09476.gpkg.zip) | 40 MB |
+| Kulmbach | Landkreis | [`09477.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09477.gpkg.zip) | 45 MB |
+| Landsberg am Lech | Landkreis | [`09181.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09181.gpkg.zip) | 47 MB |
+| Landshut | Landkreis | [`09274.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09274.gpkg.zip) | 79 MB |
+| Landshut | Stadt | [`09261.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09261.gpkg.zip) | 8 MB |
+| Lichtenfels | Landkreis | [`09478.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09478.gpkg.zip) | 39 MB |
+| Lindau | Landkreis | [`09776.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09776.gpkg.zip) | 32 MB |
+| Main-Spessart | Landkreis | [`09677.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09677.gpkg.zip) | 88 MB |
+| Memmingen | Stadt | [`09764.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09764.gpkg.zip) | 6 MB |
+| Miesbach | Landkreis | [`09182.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09182.gpkg.zip) | 45 MB |
+| Miltenberg | Landkreis | [`09676.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09676.gpkg.zip) | 65 MB |
+| Mühldorf am Inn | Landkreis | [`09183.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09183.gpkg.zip) | 53 MB |
+| München | Landkreis | [`09184.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09184.gpkg.zip) | 42 MB |
+| München | Stadt | [`09162.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09162.gpkg.zip) | 42 MB |
+| Neu-Ulm | Landkreis | [`09775.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09775.gpkg.zip) | 42 MB |
+| Neuburg-Schrobenhausen | Landkreis | [`09185.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09185.gpkg.zip) | 46 MB |
+| Neumarkt in der Oberpfalz | Landkreis | [`09373.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09373.gpkg.zip) | 76 MB |
+| Neustadt an der Aisch-Bad Windsheim | Landkreis | [`09575.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09575.gpkg.zip) | 69 MB |
+| Neustadt an der Waldnaab | Landkreis | [`09374.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09374.gpkg.zip) | 68 MB |
+| Nürnberg | Stadt | [`09564.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09564.gpkg.zip) | 28 MB |
+| Nürnberger Land | Landkreis | [`09574.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09574.gpkg.zip) | 73 MB |
+| Oberallgäu | Landkreis | [`09780.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09780.gpkg.zip) | 80 MB |
+| Ostallgäu | Landkreis | [`09777.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09777.gpkg.zip) | 92 MB |
+| Passau | Landkreis | [`09275.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09275.gpkg.zip) | 108 MB |
+| Passau | Stadt | [`09262.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09262.gpkg.zip) | 7 MB |
+| Pfaffenhofen an der Ilm | Landkreis | [`09186.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09186.gpkg.zip) | 55 MB |
+| Regen | Landkreis | [`09276.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09276.gpkg.zip) | 56 MB |
+| Regensburg | Landkreis | [`09375.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09375.gpkg.zip) | 81 MB |
+| Regensburg | Stadt | [`09362.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09362.gpkg.zip) | 10 MB |
+| Rhön-Grabfeld | Landkreis | [`09673.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09673.gpkg.zip) | 66 MB |
+| Rosenheim | Landkreis | [`09187.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09187.gpkg.zip) | 106 MB |
+| Rosenheim | Stadt | [`09163.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09163.gpkg.zip) | 6 MB |
+| Roth | Landkreis | [`09576.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09576.gpkg.zip) | 61 MB |
+| Rottal-Inn | Landkreis | [`09277.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09277.gpkg.zip) | 85 MB |
+| Schwabach | Stadt | [`09565.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09565.gpkg.zip) | 5 MB |
+| Schwandorf | Landkreis | [`09376.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09376.gpkg.zip) | 86 MB |
+| Schweinfurt | Landkreis | [`09678.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09678.gpkg.zip) | 58 MB |
+| Schweinfurt | Stadt | [`09662.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09662.gpkg.zip) | 5 MB |
+| Starnberg | Landkreis | [`09188.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09188.gpkg.zip) | 33 MB |
+| Straubing | Stadt | [`09263.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09263.gpkg.zip) | 6 MB |
+| Straubing-Bogen | Landkreis | [`09278.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09278.gpkg.zip) | 68 MB |
+| Tirschenreuth | Landkreis | [`09377.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09377.gpkg.zip) | 52 MB |
+| Traunstein | Landkreis | [`09189.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09189.gpkg.zip) | 86 MB |
+| Unterallgäu | Landkreis | [`09778.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09778.gpkg.zip) | 83 MB |
+| Weiden in der Oberpfalz | Stadt | [`09363.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09363.gpkg.zip) | 7 MB |
+| Weilheim-Schongau | Landkreis | [`09190.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09190.gpkg.zip) | 66 MB |
+| Weißenburg-Gunzenhausen | Landkreis | [`09577.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09577.gpkg.zip) | 57 MB |
+| Wunsiedel i. Fichtelgebirge | Landkreis | [`09479.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09479.gpkg.zip) | 37 MB |
+| Würzburg | Landkreis | [`09679.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09679.gpkg.zip) | 67 MB |
+| Würzburg | Stadt | [`09663.gpkg.zip`](https://data.minonexus.com/flurstuecksnaeherung-bayern/09663.gpkg.zip) | 12 MB |
+
+Dieselbe Liste maschinenlesbar: [`kreise.csv`](kreise.csv) (Kreisschlüssel, Name, Art).
+</details>
+
+### Ohne Download lesen
+
+GDAL und alles, was darauf aufbaut, liest die Datei direkt aus der URL. Das lohnt sich, wenn nur
+ein Ausschnitt gebraucht wird:
+
+```bash
+# Überblick: Anzahl der Flächen, Attribute, Koordinatensystem
+ogrinfo -ro -so -al /vsizip//vsicurl/https://data.minonexus.com/flurstuecksnaeherung-bayern/09762.gpkg.zip/09762.gpkg
+
+# Eine Gemeinde als GeoJSON in WGS84 (Erding, Stadt)
+ogr2ogr -f GeoJSON erding.geojson -t_srs EPSG:4326 -where "ags_gemeinde = '09177117'" \
+  /vsizip//vsicurl/https://data.minonexus.com/flurstuecksnaeherung-bayern/09177.gpkg.zip/09177.gpkg
+```
+
+Mit `ogr2ogr` lässt sich das GeoPackage in jedes andere Format umwandeln, etwa Shapefile,
+GeoParquet oder FlatGeobuf. Angeboten wird bewusst nur dieses eine Format.
+
+### Ganz Bayern laden
+
+Das Manifest nennt jede Datei mit ihrer SHA-256-Prüfsumme. Damit lässt sich prüfen, ob alles
+vollständig angekommen ist (braucht `curl` und `jq`):
+
+```bash
+B=https://data.minonexus.com/flurstuecksnaeherung-bayern
+curl -fsSO "$B/manifest.json"
+jq -r '.kreise[].datei' manifest.json | while read -r f; do curl -fsSO "$B/$f"; done
+jq -r '.kreise[] | "\(.sha256)  \(.datei)"' manifest.json | sha256sum -c --quiet && echo "alle Prüfsummen stimmen"
+```
+
+### Aktuell halten
+
+Jeder Kreis hat im [`manifest.json`](https://data.minonexus.com/flurstuecksnaeherung-bayern/manifest.json)
+einen **Stand**. Er steigt nur, wenn sich in diesem Kreis etwas geändert hat, etwa durch eine
+Korrektur oder eine Neuberechnung. Neu zu laden sind also nur die Kreise, deren Stand gestiegen ist:
+
+```bash
+B=https://data.minonexus.com/flurstuecksnaeherung-bayern
+cp manifest.json manifest.alt.json
+curl -fsSO "$B/manifest.json"
+jq -r --slurpfile alt manifest.alt.json \
+  '.kreise | to_entries[] | select(.value.stand != $alt[0].kreise[.key].stand) | .value.datei' manifest.json |
+  while read -r f; do echo "neu: $f"; curl -fsSO "$B/$f"; done
+```
+
+Die `id` einer Fläche bleibt über alle Stände gleich. Welche Flächen sich geändert haben, zeigt
+`kreis_stand`: Er ist der Stand, in dem sich die Fläche zuletzt geändert hat.
+
+### Attribute
 
 | Attribut | Bedeutung |
 |---|---|
