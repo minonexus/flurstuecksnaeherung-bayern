@@ -11,10 +11,8 @@ automatisch vektorisiert und mit einem gelernten Modell genähert.
 
 ## Download
 
-> **Im Test:** Bisher liegt nur Erding (`09177`) vor, die übrigen Landkreise folgen.
-
 - [`manifest.json`](https://data.minonexus.com/flurstuecksnaeherung-bayern/manifest.json): je Landkreis der aktuelle **Stand**, das Datum, die Datei und ihre SHA-256-Prüfsumme
-- `<kreis>.gpkg.zip`: je Landkreis ein GeoPackage, z. B. `09177.gpkg.zip` für Erding (≈ 60 MB). Layer `flurstuecksnaeherung`, EPSG:25832.
+- `<kreis>.gpkg.zip`: je Landkreis und kreisfreier Stadt ein GeoPackage, z. B. `09177.gpkg.zip` für Erding (59 MB). Layer `flurstuecksnaeherung`, EPSG:25832. Alle 96 zusammen: 4,6 GB.
 
 Der Stand eines Kreises steigt nur, wenn sich dort etwas geändert hat. Wer den Bestand bei
 sich führt, vergleicht das Manifest und lädt nur die geänderten Kreise neu.
