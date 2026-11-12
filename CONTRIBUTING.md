@@ -45,7 +45,7 @@ und Beschreibung. Wir erstellen die Datei dann.
 | | |
 |---|---|
 | ❌ **Konflikt** | Die Fläche hat sich seit deinem Download geändert (`basis_hash`). Lade den aktuellen Stand und bearbeite neu. |
-| ❌ Überlappung | Eine neue Grenze überlappt eine andere Fläche um mehr als 0,5 m². Nimm den genannten Nachbarn mit in die Bearbeitung. |
+| ❌ Überlappung | Eine neue Grenze überlappt eine andere Fläche um mehr als 0,5 m². Splitter unter 2 cm Breite, wie sie beim Runden auf 7 Nachkommastellen an langen Kanten entstehen, zählen nicht mit. Nimm den genannten Nachbarn mit in die Bearbeitung. |
 | ❌ Schema, Name, Größe | siehe Meldung |
 | ⚠️ Lücke | Fläche, die danach zu keinem Flurstück gehört. Bei Straße oder Bach richtig, sonst bitte prüfen. |
 | ⚠️ große Änderung | mehr als die Hälfte einer Fläche oder über 10.000 m² insgesamt, zur Kenntnis im Review |

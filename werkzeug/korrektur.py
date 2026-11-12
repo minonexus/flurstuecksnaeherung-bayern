@@ -32,10 +32,19 @@ QUELLEN = ("ortskenntnis", "parzellarkarte", "luftbild_frei", "andere_freie_quel
 
 #: Mehr Überlappung mit einer anderen Fläche ist eine, weniger ist Rundung an gemeinsamen Kanten
 MAX_UEBERLAPPUNG_M2 = 0.5
+#: Gezählt wird die Überlappung erst nach einer Öffnung um so viel: Splitter unter 2 cm Breite sind
+#: Rundung der 7 Nachkommastellen (≈ 1 cm), die sich an langen gemeinsamen Kanten summiert.
+#: Dieselbe Regel beim Einlesen (minocheck-geodata, cli/bayern_korrekturen.py).
+OEFFNUNG_M = 0.01
 #: Ab hier ein Hinweis fürs Review: viel Fläche bewegt
 HINWEIS_ANTEIL, HINWEIS_SUMME_M2 = 0.5, 10_000.0
 MAX_BYTES, MAX_FLAECHEN, NACHKOMMA = 1_000_000, 500, 7
 DATEINAME = re.compile(r"^korrekturen/(09[0-9]{3})/[0-9]{4}-[0-9]{2}-[0-9]{2}_[a-z0-9_-]{3,60}\.geojson$")
+
+
+def ueberlappung(a, b) -> float:
+    """Fläche, die `a` und `b` gemeinsam haben, ohne Rundungssplitter (m²)."""
+    return a.intersection(b).buffer(-OEFFNUNG_M).buffer(OEFFNUNG_M).area
 
 
 def geom_hash(g) -> str:
@@ -262,13 +271,13 @@ def pruefen(pfad: Path, repo: Path, daten: str, cache: dict | None = None) -> tu
     baum = shapely.STRtree([g for _, g in andere])
     for name, _, g in neue:
         for j in baum.query(g, predicate="intersects"):
-            if (u := g.intersection(andere[j][1]).area) > MAX_UEBERLAPPUNG_M2:
+            if (u := ueberlappung(g, andere[j][1])) > MAX_UEBERLAPPUNG_M2:
                 ab.append(
                     f"{name} überlappt id {andere[j][0]} um {u:.1f} m² — die Nachbarfläche als `geaendert` mit in die Datei"
                 )
     for x in range(len(neue)):
         for y in range(x + 1, len(neue)):
-            if (u := neue[x][2].intersection(neue[y][2]).area) > MAX_UEBERLAPPUNG_M2:
+            if (u := ueberlappung(neue[x][2], neue[y][2])) > MAX_UEBERLAPPUNG_M2:
                 ab.append(f"{neue[x][0]} und {neue[y][0]} überlappen sich um {u:.1f} m²")
     # Lücken: Was eine geänderte oder entfallene Fläche abgibt und keine andere aufnimmt
     for f in daten_json["features"]:
