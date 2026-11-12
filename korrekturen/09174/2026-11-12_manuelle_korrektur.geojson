@@ -1,0 +1,6 @@
+{"type":"FeatureCollection",
+"korrektur":{"schema":1,"basis":[{"kreis":"09174","stand":2}],"grund":"Flurstücksgrenzen nach Prüfung im Einzelfall berichtigt. Die neuen Flächen sind aus den Bereichen der Parzellarkarte zusammengesetzt; die Näherung hatte ein Flurstück auf mehrere Flächen verteilt.","quelle":"manuelle_korrektur"},
+"features":[
+{"type":"Feature","id":71959028,"properties":{"aenderung":"entfallen","basis_hash":"64cdd1817a214832"},"geometry":null},
+{"type":"Feature","id":71959047,"properties":{"aenderung":"geaendert","basis_hash":"f4ef63f5200dae3f"},"geometry":{"type":"MultiPolygon","coordinates":[[[[11.4645789,48.261831],[11.464601,48.2619057],[11.4646437,48.2619021],[11.4647269,48.2619021],[11.4647967,48.2619003],[11.46492,48.2618949],[11.4650302,48.2618948],[11.4650319,48.2619282],[11.4650354,48.2619538],[11.4650379,48.2619647],[11.4650408,48.261977],[11.4650399,48.2620217],[11.4650729,48.2620199],[11.4651319,48.2620163],[11.4651607,48.2620177],[11.4651615,48.2619538],[11.4651593,48.2619384],[11.4651592,48.2619377],[11.4651565,48.2619169],[11.4651544,48.2618903],[11.4651508,48.2618145],[11.4651338,48.2618145],[11.4651186,48.2618146],[11.4650488,48.2618163],[11.4649141,48.2618244],[11.4648503,48.2618217],[11.464794,48.2618252],[11.4647189,48.261827],[11.4646277,48.2618271],[11.4645789,48.261831]]]]}}
+]}
