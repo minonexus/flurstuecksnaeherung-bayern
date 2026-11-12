@@ -124,3 +124,12 @@ def test_manuelle_korrektur_nur_im_schema_nicht_im_werkzeug():
     quellen = json.loads(k.SCHEMA.read_text())["properties"]["korrektur"]["properties"]["quelle"]["enum"]
     assert "manuelle_korrektur" in quellen
     assert "manuelle_korrektur" not in k.QUELLEN and set(k.QUELLEN) < set(quellen)
+
+
+def test_ueberlappung_ohne_rundungssplitter():
+    # 250 m gemeinsame Kante, 5 mm verschoben: 1,25 m² Splitter, aber Rundung
+    a, b = box(0, 0, 250, 50), box(0, 49.995, 250, 100)
+    assert a.intersection(b).area > k.MAX_UEBERLAPPUNG_M2
+    assert k.ueberlappung(a, b) < 1e-6
+    # 1 m² echte Überlappung bleibt eine
+    assert k.ueberlappung(a, box(10, 49, 11, 100)) > k.MAX_UEBERLAPPUNG_M2
