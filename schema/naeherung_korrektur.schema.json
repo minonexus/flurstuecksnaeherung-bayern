@@ -37,9 +37,9 @@
           "maxLength": 2000
         },
         "quelle": {
-          "description": "Woraus die neue Grenze stammt. Nur eigene Ortskenntnis und frei lizenzierte Daten — keine amtlichen ALKIS-Auszüge, Kaufverträge oder Lagepläne mit Flurstücksangaben.",
+          "description": "Woraus die neue Grenze stammt. Nur eigene Ortskenntnis und frei lizenzierte Daten — keine amtlichen ALKIS-Auszüge, Kaufverträge oder Lagepläne mit Flurstücksangaben. manuelle_korrektur nur durch die Herausgeberin: Flächen aus den Bereichen der Parzellarkarte neu zusammengesetzt und einzeln geprüft.",
           "type": "string",
-          "enum": ["ortskenntnis", "parzellarkarte", "luftbild_frei", "andere_freie_quelle"]
+          "enum": ["ortskenntnis", "parzellarkarte", "luftbild_frei", "andere_freie_quelle", "manuelle_korrektur"]
         },
         "quelle_text": {
           "description": "Pflicht bei luftbild_frei und andere_freie_quelle: welche Quelle, unter welcher Lizenz.",

@@ -115,3 +115,12 @@ def test_name_und_ort(stand, tmp_path):
 def test_unveraendert_ist_keine_korrektur(stand, tmp_path):
     with pytest.raises(SystemExit, match="Keine Änderung"):
         _erstellen(stand, list(FLAECHEN.items()), tmp_path)
+
+
+def test_manuelle_korrektur_nur_im_schema_nicht_im_werkzeug():
+    """Die Herausgeberin korrigiert mit `manuelle_korrektur`; Beitragende wählen eine freie Quelle."""
+    import json
+
+    quellen = json.loads(k.SCHEMA.read_text())["properties"]["korrektur"]["properties"]["quelle"]["enum"]
+    assert "manuelle_korrektur" in quellen
+    assert "manuelle_korrektur" not in k.QUELLEN and set(k.QUELLEN) < set(quellen)
