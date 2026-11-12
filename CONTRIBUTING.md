@@ -32,6 +32,7 @@ und Beschreibung. Wir erstellen die Datei dann.
   - `parzellarkarte`: in der Parzellarkarte erkennbar
   - `luftbild_frei`: ein frei lizenziertes Luftbild, mit `--quelle-text` „welches, welche Lizenz"
   - `andere_freie_quelle`: ebenso mit `--quelle-text`
+  - `manuelle_korrektur`: nur von uns als Herausgeberin. Die Flächen sind aus den Bereichen der Parzellarkarte neu zusammengesetzt und einzeln geprüft. Das Werkzeug bietet diese Quelle nicht an.
 
   **Nicht erlaubt** sind amtliche ALKIS-Auszüge, Kaufverträge, Lagepläne mit Flurstücksangaben und Kartendienste, deren Nutzungsbedingungen das Abzeichnen verbieten. Das ALKIS ist in Bayern kein Open Data.
 - **Lizenz:** Mit dem Pull Request stellst du deine Korrektur unter [CC BY 4.0](LICENSE), dieselbe Lizenz wie der Datensatz. Genannt wirst du über den Commit, nicht in den Daten.
